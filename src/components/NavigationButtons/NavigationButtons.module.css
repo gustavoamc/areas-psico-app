@@ -1,0 +1,41 @@
+.navigationContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.buttonSecondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background-color: #4b5563;
+}
+
+.buttonPrimary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.buttonPrimary:disabled {
+  background-color: #93c5fd;
+}

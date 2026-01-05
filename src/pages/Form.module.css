@@ -5,14 +5,64 @@
 }
 
 .formContent {
-  max-width: 48rem;
+  max-width: 52rem;
   margin: 0 auto;
 }
 
-.formTitle {
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 2rem;
+.opening {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
   text-align: center;
+  color: black;
+}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: black;
+}
+
+.opening h3 {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0.5rem 0;
+  color: black;
+  max-width: 600px;
+}
+
+.startButton {
+  margin-top: 2rem;
+  padding: 0.6rem 1.8rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.startButton:hover {
+  background-color: #1d4ed8;
+}
+
+.formTitle {
+  display: none;
+}
+
+.questionWrapper {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.sectionLabel {
+  display: none;
 }

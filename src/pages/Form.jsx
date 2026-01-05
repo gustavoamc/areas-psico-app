@@ -1,107 +1,143 @@
 import { useState } from 'react';
-import { sectionsData } from '../assets/questions';
-import Section from '../components/Section/Section';
+import { questionsData } from '../assets/questions';
+import Question from '../components/Question/Question';
 import ProgressBar from '../components/ProgressBar/ProgressBar';
 import Results from '../components/Results/Results';
 import NavigationButtons from '../components/NavigationButtons/NavigationButtons';
 import styles from './Form.module.css';
 
 export default function Form() {
-  // Inicializa estado para todas as seções
-  const keysSecoes = Object.keys(sectionsData);
-  
-  const initialState = keysSecoes.reduce((acc, key) => {
-    const numQuestions = sectionsData[key].questions.length;
-    acc[key] = {
-      respostas: Array(numQuestions).fill(-1),
-      total: 0
-    };
+  // Initialize answers for all questions (indexed by question id)
+  const initialAnswers = questionsData.reduce((acc, q) => {
+    acc[q.id] = -1; // -1 means not answered
     return acc;
   }, {});
 
-  const [secoes, setSecoes] = useState(initialState);
-  const [secaoAtual, setSecaoAtual] = useState(0);
+  const [answers, setAnswers] = useState(initialAnswers);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [finalizado, setFinalizado] = useState(false);
+  const [comecado, setComecado] = useState(false);
 
-  const keySecaoAtual = keysSecoes[secaoAtual];
+  const currentQuestion = questionsData[currentQuestionIndex];
+  const totalQuestions = questionsData.length;
 
-  // Atualiza respostas de uma seção
-  const handleRespostasChange = (keySecao, novasRespostas) => {
-    const total = novasRespostas.reduce((acc, val) => acc + val, 0);
-    
-    setSecoes(prev => ({
+  // Handle answer change for current question
+  const handleAnswerChange = (value) => {
+    setAnswers(prev => ({
       ...prev,
-      [keySecao]: {
-        respostas: novasRespostas,
-        total: total
-      }
+      [currentQuestion.id]: value
     }));
   };
 
-  // Verifica se todas as questões da seção atual foram respondidas
-  const secaoAtualCompleta = () => {
-    return secoes[keySecaoAtual].respostas.every(r => r >= 0);
+  // Check if current question is answered
+  const isCurrentQuestionAnswered = () => {
+    return answers[currentQuestion.id] >= 0;
   };
 
-  // Navegação
-  const proximaSecao = () => {
-    if (secaoAtual < keysSecoes.length - 1) {
-      setSecaoAtual(prev => prev + 1);
+  // Count how many questions have been answered
+  const countAnsweredQuestions = () => {
+    return Object.values(answers).filter(a => a >= 0).length;
+  };
+
+  // Navigation
+  const nextQuestion = () => {
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
     } else {
       setFinalizado(true);
     }
   };
 
-  const secaoAnterior = () => {
-    if (secaoAtual > 0) {
-      setSecaoAtual(prev => prev - 1);
+  const previousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
     }
   };
 
   const reiniciar = () => {
-    setSecoes(initialState);
-    setSecaoAtual(0);
+    setAnswers(initialAnswers);
+    setCurrentQuestionIndex(0);
     setFinalizado(false);
+    setComecado(false);
   };
 
-  // Prepara dados para os resultados
-  const resultados = keysSecoes.reduce((acc, key) => {
-    acc[key] = {
-      title: sectionsData[key].title,
-      total: secoes[key].total
+  // Prepare results grouped by section
+  const prepareResults = () => {
+    const sectionTitles = {
+      1: 'Equilíbrio Emocional e Psicológico',
+      2: 'Traumas e Superação',
+      3: 'Relacionamentos e Vínculos',
+      4: 'Habilidades Sociais e Posicionamento',
+      5: 'Comportamento, Hábito e Ação',
+      6: 'Trabalho, Carreira e Realização',
+      7: 'Propósito e Existência'
     };
-    return acc;
-  }, {});
+
+    const sections = {};
+    
+    questionsData.forEach(q => {
+      if (!sections[q.section]) {
+        sections[q.section] = {
+          title: sectionTitles[q.section],
+          total: 0
+        };
+      }
+      
+      const answer = answers[q.id];
+      if (answer >= 0) {
+        sections[q.section].total += answer;
+      }
+    });
+
+    return sections;
+  };
+
+  const resultados = prepareResults();
 
   return (
     <div className={styles.formContainer}>
       <div className={styles.formContent}>
-        <h1 className={styles.formTitle}>
-          Formulário de Avaliação Psicológica
-        </h1>
 
-        {!finalizado ? (
+        {!comecado && (
+          <div className={styles.opening}>
+            <h1 className={styles.mainTitle}>Diagnóstico dos 7 vetores</h1>
+            <h3>Este questionário serve para oriento ficar quais áreas da sua vida necessitam de maior atenção para que você tenha uma vida plena</h3>
+            <h3>Responda a todas as perguntas com sinceridade</h3>
+
+            <button onClick={() => setComecado(true)} className={styles.startButton}>Começar questionário</button>
+          </div>
+        )}
+
+        {(!finalizado && comecado) && (
           <>
             <ProgressBar 
-              secaoAtual={secaoAtual} 
-              totalSecoes={keysSecoes.length} 
+              questaoAtual={currentQuestionIndex} 
+              totalQuestoes={totalQuestions}
+              questoesRespondidas={countAnsweredQuestions()}
             />
 
-            <Section
-              secao={sectionsData[keySecaoAtual]}
-              respostas={secoes[keySecaoAtual].respostas}
-              onRespostasChange={(respostas) => handleRespostasChange(keySecaoAtual, respostas)}
-            />
+            <div className={styles.questionWrapper}>
+              <p className={styles.sectionLabel}>
+                Seção {currentQuestion.section} - Questão {currentQuestionIndex + 1} de {totalQuestions}
+              </p>
+              <Question
+                questao={{ id: currentQuestion.id, text: currentQuestion.question }}
+                valor={answers[currentQuestion.id]}
+                onChange={handleAnswerChange}
+              />
+            </div>
 
             <NavigationButtons
-              secaoAtual={secaoAtual}
-              totalSecoes={keysSecoes.length}
-              onAnterior={secaoAnterior}
-              onProxima={proximaSecao}
-              secaoCompleta={secaoAtualCompleta()}
+              questaoAtual={currentQuestionIndex}
+              totalQuestoes={totalQuestions}
+              onAnterior={previousQuestion}
+              onProxima={nextQuestion}
+              questaoCompleta={isCurrentQuestionAnswered()}
             />
           </>
-        ) : (
+        )}
+
+        {(comecado && finalizado) && (
           <Results 
             resultados={resultados} 
             onReiniciar={reiniciar}

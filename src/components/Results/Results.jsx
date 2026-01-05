@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 import styles from './Results.module.css';
 
 export default function Results({ resultados, onReiniciar }) {
@@ -18,16 +18,6 @@ export default function Results({ resultados, onReiniciar }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="nome" />
             <YAxis />
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: 'white', 
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                padding: '8px'
-              }}
-              labelStyle={{ fontWeight: 'bold', marginBottom: '4px' }}
-              cursor={{ fill: 'rgba(37, 99, 235, 0.1)' }}
-            />
             <Legend />
             <Bar dataKey="total" fill="#3b82f6" name="Pontuação" />
           </BarChart>
@@ -47,7 +37,7 @@ export default function Results({ resultados, onReiniciar }) {
         onClick={onReiniciar}
         className={styles.restartButton}
       >
-        Reiniciar Formulário
+        Reiniciar Questionário
       </button>
     </div>
   );

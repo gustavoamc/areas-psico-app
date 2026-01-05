@@ -1,16 +1,16 @@
 import styles from './ProgressBar.module.css';
 
-export default function ProgressBar({ secaoAtual, totalSecoes }) {
-  const percentual = Math.round(((secaoAtual + 1) / totalSecoes) * 100);
+export default function ProgressBar({ questaoAtual, totalQuestoes, questoesRespondidas }) {
+  const percentual = Math.round((questoesRespondidas / totalQuestoes) * 100);
 
   return (
     <div className={styles.progressContainer}>
       <div className={styles.progressInfo}>
         <span className={styles.progressText}>
-          Seção {secaoAtual + 1} de {totalSecoes}
+          Questão {questaoAtual + 1} de {totalQuestoes}
         </span>
         <span className={styles.progressText}>
-          {percentual}%
+          {questoesRespondidas} respondidas ({percentual}%)
         </span>
       </div>
       <div className={styles.progressBarBg}>

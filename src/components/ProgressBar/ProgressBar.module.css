@@ -3,13 +3,11 @@
 }
 
 .progressInfo {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+  display: none;
 }
 
 .progressText {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #374151;
 }

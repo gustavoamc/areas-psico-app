@@ -1,20 +1,20 @@
 import styles from './NavigationButtons.module.css';
 
 export default function NavigationButtons({ 
-  secaoAtual, 
-  totalSecoes, 
+  questaoAtual, 
+  totalQuestoes, 
   onAnterior, 
   onProxima, 
-  secaoCompleta 
+  questaoCompleta 
 }) {
-  const isFirstSection = secaoAtual === 0;
-  const isLastSection = secaoAtual === totalSecoes - 1;
+  const isFirstQuestion = questaoAtual === 0;
+  const isLastQuestion = questaoAtual === totalQuestoes - 1;
 
   return (
     <div className={styles.navigationContainer}>
       <button
         onClick={onAnterior}
-        disabled={isFirstSection}
+        disabled={isFirstQuestion}
         className={`${styles.button} ${styles.buttonSecondary}`}
       >
         Anterior
@@ -22,10 +22,10 @@ export default function NavigationButtons({
       
       <button
         onClick={onProxima}
-        disabled={!secaoCompleta}
+        disabled={!questaoCompleta}
         className={`${styles.button} ${styles.buttonPrimary}`}
       >
-        {isLastSection ? 'Finalizar' : 'Próxima'}
+        {isLastQuestion ? 'Finalizar' : 'Próxima'}
       </button>
     </div>
   );

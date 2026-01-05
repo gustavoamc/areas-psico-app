@@ -4,7 +4,7 @@
 
 .questionLabel {
   display: block;
-  font-size: 0.875rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #374151;
   margin-bottom: 0.5rem;
@@ -12,8 +12,8 @@
 
 .optionsContainer {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 .optionLabel {
@@ -31,6 +31,6 @@
 }
 
 .optionText {
-  font-size: 0.875rem;
+  font-size: 1.25rem;
   color: #4b5563;
 }

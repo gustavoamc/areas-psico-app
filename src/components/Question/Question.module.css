@@ -1,5 +1,9 @@
 .questionContainer {
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .questionLabel {
@@ -8,12 +12,14 @@
   font-weight: 500;
   color: #374151;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .optionsContainer {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  align-items: flex-start;
 }
 
 .optionLabel {

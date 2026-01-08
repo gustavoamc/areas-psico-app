@@ -1,12 +1,12 @@
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer, Tooltip } from 'recharts';
 import styles from './Results.module.css';
 
-export default function Results({ resultados, onReiniciar }) {
+export default function Results({ resultados }) {
   const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#c20d0dff', '#ec4899', '#101091'];
   
   const dados = Object.entries(resultados).map(([key, value], index) => ({
     name: `${value.title}`,
-    section: `Seção ${index + 1}`,
+    vector: `V-${index + 1}`,
     value: value.total
   }));
 
@@ -24,8 +24,6 @@ export default function Results({ resultados, onReiniciar }) {
 
   return (
     <div className={styles.resultsContainer}>
-      <h2 className={styles.resultsTitle}>Resultados Finais</h2>
-      
       <div className={styles.chartContainer}>
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
@@ -34,7 +32,7 @@ export default function Results({ resultados, onReiniciar }) {
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ section, percent }) => `${section}: ${(percent * 100).toFixed(0)}%`}
+              label={({ vector, percent }) => `${vector}: ${(percent * 100).toFixed(0)}%`}
               outerRadius={120}
               fill="#8884d8"
               dataKey="value"
@@ -44,7 +42,6 @@ export default function Results({ resultados, onReiniciar }) {
               ))}
             </Pie>
             <Tooltip />
-            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>
@@ -55,7 +52,7 @@ export default function Results({ resultados, onReiniciar }) {
           <div className={styles.scoresList}>
             {highAttentionSections.map((item) => (
               <div key={item.key} className={styles.scoreItem}>
-                <span className={styles.scoreName}>Seção {item.index + 1} - {item.value.title}</span>
+                <span className={styles.scoreName}>Vetor {item.index + 1} - {item.value.title}</span>
                 <span className={styles.scoreValue}>{item.value.total} pontos</span>
               </div>
             ))}
@@ -68,18 +65,12 @@ export default function Results({ resultados, onReiniciar }) {
           <h3 className={styles.boxTitle}>Outros</h3>
           <p className={styles.othersText}>
             {otherSections.map((item, idx) => (
-              `Seção ${item.index + 1}: ${item.value.total} pontos${idx < otherSections.length - 1 ? ', ' : ''}`
+              `V ${item.index + 1}: ${item.value.total} pontos${idx < otherSections.length - 1 ? ', ' : ''}`
             )).join('')}
           </p>
         </div>
       )}
 
-      <button
-        onClick={onReiniciar}
-        className={styles.restartButton}
-      >
-        Reiniciar Questionário
-      </button>
     </div>
   );
 }

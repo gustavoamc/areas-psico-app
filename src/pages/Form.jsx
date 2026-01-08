@@ -27,6 +27,15 @@ export default function Form() {
       ...prev,
       [currentQuestion.id]: value
     }));
+    
+    // Auto-advance to next question after a short delay
+    setTimeout(() => {
+      if (currentQuestionIndex < totalQuestions - 1) {
+        setCurrentQuestionIndex(prev => prev + 1);
+      } else {
+        setFinalizado(true);
+      }
+    }, 300);
   };
 
   // Check if current question is answered
@@ -52,13 +61,6 @@ export default function Form() {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
     }
-  };
-
-  const reiniciar = () => {
-    setAnswers(initialAnswers);
-    setCurrentQuestionIndex(0);
-    setFinalizado(false);
-    setComecado(false);
   };
 
   // Prepare results grouped by section
@@ -139,8 +141,7 @@ export default function Form() {
 
         {(comecado && finalizado) && (
           <Results 
-            resultados={resultados} 
-            onReiniciar={reiniciar}
+            resultados={resultados}
           />
         )}
       </div>

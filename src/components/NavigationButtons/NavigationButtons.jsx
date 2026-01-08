@@ -8,7 +8,6 @@ export default function NavigationButtons({
   questaoCompleta 
 }) {
   const isFirstQuestion = questaoAtual === 0;
-  const isLastQuestion = questaoAtual === totalQuestoes - 1;
 
   return (
     <div className={styles.navigationContainer}>
@@ -18,14 +17,6 @@ export default function NavigationButtons({
         className={`${styles.button} ${styles.buttonSecondary}`}
       >
         Anterior
-      </button>
-      
-      <button
-        onClick={onProxima}
-        disabled={!questaoCompleta}
-        className={`${styles.button} ${styles.buttonPrimary}`}
-      >
-        {isLastQuestion ? 'Finalizar' : 'Próxima'}
       </button>
     </div>
   );

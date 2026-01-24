@@ -20,6 +20,7 @@
   flex-direction: column;
   gap: 0.5rem;
   align-items: flex-start;
+  width: 100%;
 }
 
 .optionLabel {
@@ -28,6 +29,8 @@
   gap: 0.25rem;
   cursor: pointer;
   padding: 0.25rem;
+  border: 2px #000 solid;
+  width: 100%;
 }
 
 .radioInput {

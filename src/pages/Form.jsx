@@ -103,7 +103,7 @@ export default function Form() {
         {!comecado && (
           <div className={styles.opening}>
             <h1 className={styles.mainTitle}>Diagnóstico dos 7 vetores</h1>
-            <h3>Este questionário serve para oriento ficar quais áreas da sua vida necessitam de maior atenção para que você tenha uma vida plena</h3>
+            <h3>Este questionário serve para identificar qual vetor de sua vida necessita de sua atenção.</h3>
             <h3>Responda a todas as perguntas com sinceridade</h3>
 
             <button onClick={() => setComecado(true)} className={styles.startButton}>Começar questionário</button>

@@ -10,9 +10,9 @@ export default function Question({ questao, valor, onChange }) {
 
   return (
     <div className={styles.questionContainer}>
-      <label className={styles.questionLabel}>
+      <h3 className={styles.questionLabel}>
         {questao.text}
-      </label>
+      </h3>
       <div className={styles.optionsContainer}>
         {options.map((option) => (
           <label key={option.value} className={styles.optionLabel}>

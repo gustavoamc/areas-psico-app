@@ -2,8 +2,8 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer, Tooltip } from 'recha
 import styles from './Results.module.css';
 
 export default function Results({ resultados }) {
-  // Similar colors (shades of blue/gray) for normal sections
-  const NORMAL_COLORS = ['#64748b', '#7c8a9d', '#94a3b8', '#a8b5c7', '#bcc5d3', '#cbd5e1', '#e2e8f0'];
+  // Yellow gradient from light to dark (0 to 7)
+  const NORMAL_COLORS = ['#fef9c3', '#fef08a', '#fde047', '#facc15', '#eab308', '#ca8a04', '#a16207'];
   // Red color for high attention
   const HIGH_ATTENTION_COLOR = '#ef4444';
   
@@ -77,7 +77,7 @@ export default function Results({ resultados }) {
       <div className={styles.subtitles}>
         {dados.map((item, index) => (
           <div key={index} className={styles.subtitleItem}>
-            {item.vector}: {item.name}
+            V{item.vector}: {item.name}
           </div>
         ))}
       </div>
